@@ -80,15 +80,41 @@ CREATE TABLE VENTA(
 INSERT INTO PAIS VALUES('Colombia', 'COP');
 INSERT INTO DPTO VALUES('A', 'Antioquia', 'Colombia');
 INSERT INTO CIUDAD VALUES('M', 'Medellin', 4000000, 'A');
-INSERT INTO SUCURSAL VALUES('S1', 'Sucursal UNO', 'Carrera esa Numero la otra', 'M');
+INSERT INTO SUCURSAL VALUES('S1', 'Sucursal UNO', 'Carrera esa', 'M');
+
+INSERT INTO PAIS VALUES('United States', 'USD');
+INSERT INTO DPTO VALUES('CO', 'Colorado', 'United States');
+INSERT INTO DPTO VALUES('CA', 'California', 'United States');
+INSERT INTO CIUDAD VALUES('B', 'Boulder', 7000000, 'CO');
+INSERT INTO CIUDAD VALUES('NI', 'No Idea', 8000000, 'CO');
+INSERT INTO SUCURSAL VALUES('S2', 'Boulder place', 'English Direction :v', 'B');
+INSERT INTO SUCURSAL VALUES('S3', 'Boulder second place', 'English Direction2', 'B');
+
+INSERT INTO PAIS VALUES('Ecuador', 'ECUPESOS :)');
 
 INSERT INTO GREMIO VALUES('LM', 'Los mejores (y)');
 INSERT INTO VENDEDOR VALUES('V1', 'Pedro', 2000000, 'LM');
 
+INSERT INTO GREMIO VALUES('LP', 'Los peores :(');
+INSERT INTO VENDEDOR VALUES('V2', 'Pablo', 300000, 'LP');
+
+INSERT INTO GREMIO VALUES('AE', 'Apenas empezando');
+INSERT INTO VENDEDOR VALUES('V3', 'Pinky', 0, 'AE');
+
+INSERT INTO GREMIO VALUES('SM', 'Sin Miembros');
+
 INSERT INTO MARCA VALUES('Adidas', 'Ropita en general :v');
 INSERT INTO PRODUCTO VALUES('PKi9', 'Tenis deportivos', 'Calzado', 'Adidas');
 
+INSERT INTO MARCA VALUES('Niki', 'Copias de Nike :)');
+INSERT INTO PRODUCTO VALUES('CodBarras1', 'Producto 1', 'Tipo1', 'Niki');
+
+INSERT INTO MARCA VALUES('Marca vacia', 'No tenemos producto');
+
 INSERT INTO VENTA VALUES('Venta1', 1000, 'S1', 'PKi9', 'V1');
+INSERT INTO VENTA VALUES('Venta2', 3000, 'S1', 'PKi9', 'V1');
+INSERT INTO VENTA VALUES('Venta3', 4000, 'S2', 'PKi9', 'V2');
+INSERT INTO VENTA VALUES('Venta4', 5000, 'S2', 'PKi9', 'V1');
 
 SELECT * FROM PAIS;
 SELECT * FROM DPTO;
@@ -101,85 +127,92 @@ SELECT * FROM VENDEDOR;
 SELECT * FROM MARCA;
 SELECT * FROM PRODUCTO;
 
+SELECT * FROM VENTA;
+
 SELECT SUCURSAL.codigo, SUCURSAL.nombre, SUM(valor) AS valor_total
 FROM VENTA
-INNER JOIN SUCURSAL
+RIGHT JOIN SUCURSAL
 ON VENTA.codigo_sucursal = SUCURSAL.codigo
-GROUP BY SUCURSAL.codigo;
+GROUP BY SUCURSAL.codigo, SUCURSAL.nombre;
 
 SELECT VENDEDOR.codigo, VENDEDOR.nombre, SUM(valor) AS valor_total
 FROM VENTA
-INNER JOIN VENDEDOR
+RIGHT JOIN VENDEDOR
 ON VENTA.codigo_vendedor = VENDEDOR.codigo
-GROUP BY VENDEDOR.codigo;
+GROUP BY VENDEDOR.codigo, VENDEDOR.nombre;
 
 SELECT PRODUCTO.codbarras, PRODUCTO.nombre, SUM(valor) AS valor_total
 FROM VENTA
-INNER JOIN PRODUCTO
+RIGHT JOIN PRODUCTO
 ON VENTA.codbarras_producto = PRODUCTO.codbarras
-GROUP BY PRODUCTO.codbarras;
+GROUP BY PRODUCTO.codbarras, PRODUCTO.nombre;
 
 SELECT SUCURSAL_CIUDAD.codigo_ciudad, SUCURSAL_CIUDAD.nombre_ciudad, SUM(valor) AS valor_total
 FROM VENTA
-INNER JOIN (
+RIGHT JOIN (
 SELECT SUCURSAL.codigo AS codigo_sucursal, CIUDAD.codigo AS codigo_ciudad, CIUDAD.nombre AS nombre_ciudad
 FROM SUCURSAL
-INNER JOIN CIUDAD
+RIGHT JOIN CIUDAD
 ON SUCURSAL.codigo_ciudad = CIUDAD.codigo
-) AS SUCURSAL_CIUDAD
+) SUCURSAL_CIUDAD
 ON VENTA.codigo_sucursal = SUCURSAL_CIUDAD.codigo_sucursal
-GROUP BY SUCURSAL_CIUDAD.codigo_ciudad;
+GROUP BY SUCURSAL_CIUDAD.codigo_ciudad, SUCURSAL_CIUDAD.nombre_ciudad;
 
 SELECT VENDEDOR_GREMIO.codigo_gremio, VENDEDOR_GREMIO.nombre_gremio, SUM(valor) AS valor_total
 FROM VENTA
-INNER JOIN (
+RIGHT JOIN (
 SELECT VENDEDOR.codigo AS codigo_vendedor, GREMIO.codigo AS codigo_gremio, GREMIO.nombre AS nombre_gremio
 FROM VENDEDOR
-INNER JOIN GREMIO
+RIGHT JOIN GREMIO
 ON VENDEDOR.codigo_gremio = GREMIO.codigo
-) AS VENDEDOR_GREMIO
+) VENDEDOR_GREMIO
 ON VENTA.codigo_vendedor = VENDEDOR_GREMIO.codigo_vendedor
-GROUP BY VENDEDOR_GREMIO.codigo_gremio;
+GROUP BY VENDEDOR_GREMIO.codigo_gremio, VENDEDOR_GREMIO.nombre_gremio;
 
 SELECT PRODUCTO_MARCA.nombre_marca, PRODUCTO_MARCA.descripcion_marca, SUM(valor) AS valor_total
 FROM VENTA
-INNER JOIN (
+RIGHT JOIN (
 SELECT PRODUCTO.codbarras AS codbarras_producto, MARCA.nombre AS nombre_marca, MARCA.descripcion AS descripcion_marca
 FROM PRODUCTO
-INNER JOIN MARCA
+RIGHT JOIN MARCA
 ON PRODUCTO.nombre_marca = MARCA.nombre
-) AS PRODUCTO_MARCA
+) PRODUCTO_MARCA
 ON VENTA.codbarras_producto = PRODUCTO_MARCA.codbarras_producto
-GROUP BY PRODUCTO_MARCA.nombre_marca;
+GROUP BY PRODUCTO_MARCA.nombre_marca, PRODUCTO_MARCA.descripcion_marca;
 
 SELECT SUCURSAL_DPTO.codigo_dpto, SUCURSAL_DPTO.nombre_dpto, SUM(valor) AS valor_total
 FROM VENTA
-INNER JOIN (
+RIGHT JOIN (
 SELECT SUCURSAL.codigo AS codigo_sucursal, CIUDAD_DPTO.codigo_dpto AS codigo_dpto, CIUDAD_DPTO.nombre_dpto AS nombre_dpto
 FROM SUCURSAL
-INNER JOIN (
+RIGHT JOIN (
 SELECT CIUDAD.codigo AS codigo_ciudad, DPTO.codigo AS codigo_dpto, DPTO.nombre AS nombre_dpto
 FROM CIUDAD
-INNER JOIN DPTO
+RIGHT JOIN DPTO
 ON CIUDAD.codigo_dpto = DPTO.codigo
-) AS CIUDAD_DPTO
+) CIUDAD_DPTO
 ON SUCURSAL.codigo_ciudad = CIUDAD_DPTO.codigo_ciudad
-) AS SUCURSAL_DPTO
+) SUCURSAL_DPTO
 ON VENTA.codigo_sucursal = SUCURSAL_DPTO.codigo_sucursal
-GROUP BY SUCURSAL_DPTO.codigo_dpto;
+GROUP BY SUCURSAL_DPTO.codigo_dpto, SUCURSAL_DPTO.nombre_dpto;
 
 SELECT SUCURSAL_PAIS.nombre_pais, SUM(valor) AS valor_total
 FROM VENTA
-INNER JOIN (
+RIGHT JOIN (
 SELECT SUCURSAL.codigo AS codigo_sucursal, CIUDAD_PAIS.nombre_pais AS nombre_pais
 FROM SUCURSAL
-INNER JOIN (
-SELECT CIUDAD.codigo AS codigo_ciudad, DPTO.nombre_pais AS nombre_pais
+RIGHT JOIN (
+SELECT CIUDAD.codigo AS codigo_ciudad, DPTO_PAIS.nombre_pais AS nombre_pais
 FROM CIUDAD
-INNER JOIN DPTO
-ON CIUDAD.codigo_dpto = DPTO.codigo
-) AS CIUDAD_PAIS
+RIGHT JOIN (
+SELECT DPTO.codigo AS codigo_dpto, PAIS.nombre AS nombre_pais
+FROM DPTO
+RIGHT JOIN PAIS
+ON DPTO.nombre_pais = PAIS.nombre
+) DPTO_PAIS
+ON CIUDAD.codigo_dpto = DPTO_PAIS.codigo_dpto
+) CIUDAD_PAIS
 ON SUCURSAL.codigo_ciudad = CIUDAD_PAIS.codigo_ciudad
-) AS SUCURSAL_PAIS
+) SUCURSAL_PAIS
 ON VENTA.codigo_sucursal = SUCURSAL_PAIS.codigo_sucursal
 GROUP BY SUCURSAL_PAIS.nombre_pais;
