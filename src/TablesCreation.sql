@@ -101,43 +101,69 @@ SELECT * FROM VENDEDOR;
 SELECT * FROM MARCA;
 SELECT * FROM PRODUCTO;
 
-SELECT codigo_sucursal, SUM(valor) AS valor_total
-FROM VENTA
-GROUP BY codigo_sucursal;
-
-SELECT codigo_vendedor, SUM(valor) AS valor_total
-FROM VENTA
-GROUP BY codigo_vendedor;
-
-SELECT codbarras_producto, SUM(valor) AS valor_total
-FROM VENTA
-GROUP BY codbarras_producto;
-
-SELECT SUCURSAL.codigo_ciudad, SUM(valor) AS valor_total
+SELECT SUCURSAL.codigo, SUCURSAL.nombre, SUM(valor) AS valor_total
 FROM VENTA
 INNER JOIN SUCURSAL
 ON VENTA.codigo_sucursal = SUCURSAL.codigo
-GROUP BY SUCURSAL.codigo_ciudad;
+GROUP BY SUCURSAL.codigo;
 
-SELECT VENDEDOR.codigo_gremio, SUM(valor) AS valor_total
+SELECT VENDEDOR.codigo, VENDEDOR.nombre, SUM(valor) AS valor_total
 FROM VENTA
 INNER JOIN VENDEDOR
 ON VENTA.codigo_vendedor = VENDEDOR.codigo
-GROUP BY VENDEDOR.codigo_gremio;
+GROUP BY VENDEDOR.codigo;
 
-SELECT PRODUCTO.nombre_marca, SUM(valor) AS valor_total
+SELECT PRODUCTO.codbarras, PRODUCTO.nombre, SUM(valor) AS valor_total
 FROM VENTA
 INNER JOIN PRODUCTO
 ON VENTA.codbarras_producto = PRODUCTO.codbarras
-GROUP BY PRODUCTO.nombre_marca;
+GROUP BY PRODUCTO.codbarras;
 
-SELECT SUCURSAL_DPTO.codigo_dpto, SUM(valor) AS valor_total
+SELECT SUCURSAL_CIUDAD.codigo_ciudad, SUCURSAL_CIUDAD.nombre_ciudad, SUM(valor) AS valor_total
 FROM VENTA
 INNER JOIN (
-SELECT SUCURSAL.codigo AS codigo_sucursal, CIUDAD.codigo_dpto AS codigo_dpto
+SELECT SUCURSAL.codigo AS codigo_sucursal, CIUDAD.codigo AS codigo_ciudad, CIUDAD.nombre AS nombre_ciudad
 FROM SUCURSAL
 INNER JOIN CIUDAD
 ON SUCURSAL.codigo_ciudad = CIUDAD.codigo
+) AS SUCURSAL_CIUDAD
+ON VENTA.codigo_sucursal = SUCURSAL_CIUDAD.codigo_sucursal
+GROUP BY SUCURSAL_CIUDAD.codigo_ciudad;
+
+SELECT VENDEDOR_GREMIO.codigo_gremio, VENDEDOR_GREMIO.nombre_gremio, SUM(valor) AS valor_total
+FROM VENTA
+INNER JOIN (
+SELECT VENDEDOR.codigo AS codigo_vendedor, GREMIO.codigo AS codigo_gremio, GREMIO.nombre AS nombre_gremio
+FROM VENDEDOR
+INNER JOIN GREMIO
+ON VENDEDOR.codigo_gremio = GREMIO.codigo
+) AS VENDEDOR_GREMIO
+ON VENTA.codigo_vendedor = VENDEDOR_GREMIO.codigo_vendedor
+GROUP BY VENDEDOR_GREMIO.codigo_gremio;
+
+SELECT PRODUCTO_MARCA.nombre_marca, PRODUCTO_MARCA.descripcion_marca, SUM(valor) AS valor_total
+FROM VENTA
+INNER JOIN (
+SELECT PRODUCTO.codbarras AS codbarras_producto, MARCA.nombre AS nombre_marca, MARCA.descripcion AS descripcion_marca
+FROM PRODUCTO
+INNER JOIN MARCA
+ON PRODUCTO.nombre_marca = MARCA.nombre
+) AS PRODUCTO_MARCA
+ON VENTA.codbarras_producto = PRODUCTO_MARCA.codbarras_producto
+GROUP BY PRODUCTO_MARCA.nombre_marca;
+
+SELECT SUCURSAL_DPTO.codigo_dpto, SUCURSAL_DPTO.nombre_dpto, SUM(valor) AS valor_total
+FROM VENTA
+INNER JOIN (
+SELECT SUCURSAL.codigo AS codigo_sucursal, CIUDAD_DPTO.codigo_dpto AS codigo_dpto, CIUDAD_DPTO.nombre_dpto AS nombre_dpto
+FROM SUCURSAL
+INNER JOIN (
+SELECT CIUDAD.codigo AS codigo_ciudad, DPTO.codigo AS codigo_dpto, DPTO.nombre AS nombre_dpto
+FROM CIUDAD
+INNER JOIN DPTO
+ON CIUDAD.codigo_dpto = DPTO.codigo
+) AS CIUDAD_DPTO
+ON SUCURSAL.codigo_ciudad = CIUDAD_DPTO.codigo_ciudad
 ) AS SUCURSAL_DPTO
 ON VENTA.codigo_sucursal = SUCURSAL_DPTO.codigo_sucursal
 GROUP BY SUCURSAL_DPTO.codigo_dpto;
