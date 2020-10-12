@@ -12,14 +12,14 @@ public class InitializeMongo {
      */
     public static void initializeCollections(){
         MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
-        mongoClient.getDatabase("local").getCollection("sucursal").drop();
+        /*mongoClient.getDatabase("local").getCollection("sucursal").drop();
         mongoClient.getDatabase("local").getCollection("ciudad").drop();
         mongoClient.getDatabase("local").getCollection("departamento").drop();
         mongoClient.getDatabase("local").getCollection("pais").drop();
         mongoClient.getDatabase("local").getCollection("vendedor").drop();
         mongoClient.getDatabase("local").getCollection("gremio").drop();
         mongoClient.getDatabase("local").getCollection("producto").drop();
-        mongoClient.getDatabase("local").getCollection("marca").drop();
+        mongoClient.getDatabase("local").getCollection("marca").drop();*/
         mongoClient.getDatabase("local").createCollection("sucursal");
         mongoClient.getDatabase("local").createCollection("ciudad");
         mongoClient.getDatabase("local").createCollection("departamento");

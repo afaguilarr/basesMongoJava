@@ -24,7 +24,14 @@ class Vista {
         generarYCargarEstadisticas.setBounds(250, 350, 500, 50);
         generarYCargarEstadisticas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Aqui va toda la magia de pasar los datos de SQL a Mongo
+                OracleDatabase.updateSucursales();
+                OracleDatabase.updateCiudades();
+                OracleDatabase.updateDepartamento();
+                OracleDatabase.updatePaises();
+                OracleDatabase.updateVendedores();
+                OracleDatabase.updateGremios();
+                OracleDatabase.updateProductos();
+                OracleDatabase.updateMarcas();
                 JOptionPane.showMessageDialog(framePrincipal, "La información fue cargada correctamente");
             }
         });
