@@ -1,7 +1,9 @@
+package main.java.com.basesMongoJava.app;
+
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Database {
+public class OracleDatabase {
     private static Connection connection;
     private static Statement sentencia;
     private static ResultSet resultado;
