@@ -8,7 +8,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        // MongoDatabase.upsert();
-        System.out.println( "Hello World!" );
+        Vista.vista();
     }
 }

@@ -1,4 +1,4 @@
-package main.java.com.basesMongoJava.app;
+package com.basesMongoJava.app;
 
 import java.sql.*;
 import java.util.ArrayList;

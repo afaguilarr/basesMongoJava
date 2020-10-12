@@ -49,10 +49,149 @@ public class InitializeMongo {
             put("ventas", 0);
         }};
         MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        collection = "departamento";
+        clavePrimaria = "codigo";
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Antioquia");
+            put("codigo", "A");
+            put("ventas", 2000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "California");
+            put("codigo", "CA");
+            put("ventas", 0);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Colorado");
+            put("codigo", "CO");
+            put("ventas", 9000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        collection = "ciudad";
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Medellin");
+            put("codigo", "M");
+            put("ventas", 9000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Boulder");
+            put("codigo", "B");
+            put("ventas", 3000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "No idea");
+            put("codigo", "NI");
+            put("ventas", 0);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        collection = "sucursal";
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Sucursal UNO");
+            put("codigo", "S1");
+            put("ventas", 2000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Boulder place");
+            put("codigo", "S2");
+            put("ventas", 9000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Boulder second place");
+            put("codigo", "S3");
+            put("ventas", 0);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        collection = "gremio";
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Los Mejores (y)");
+            put("codigo", "LM");
+            put("ventas", 11000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Los Peores :(");
+            put("codigo", "LP");
+            put("ventas", 0);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Apenas Empezando");
+            put("codigo", "AE");
+            put("ventas", 0);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        collection = "vendedor";
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Pedro");
+            put("codigo", "V1");
+            put("ventas", 2000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Pablo");
+            put("codigo", "V2");
+            put("ventas", 0);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Pinky");
+            put("codigo", "V3");
+            put("ventas", 9000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        collection = "marca";
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Pinky");
+            put("codigo", "V3");
+            put("ventas", 9000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Pinky");
+            put("codigo", "V3");
+            put("ventas", 9000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
+
+        documento = new HashMap<String, Object>(){{
+            put("nombre", "Pinky");
+            put("codigo", "V3");
+            put("ventas", 9000);
+        }};
+        MongoDatabase.upsert(collection, clavePrimaria, documento);
     }
 
     public static void main( String[] args )
     {
-        // initializeCollectionsData();
+        initializeCollectionsData();
     }
 }
