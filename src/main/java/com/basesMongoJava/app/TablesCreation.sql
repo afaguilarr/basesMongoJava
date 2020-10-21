@@ -73,14 +73,16 @@ CREATE TABLE VENTA(
  codbarras_producto VARCHAR2(20) NOT NULL,
  codigo_vendedor VARCHAR2(20) NOT NULL,
  CONSTRAINT clave_foranea_codigo_sucursal FOREIGN KEY (codigo_sucursal) REFERENCES SUCURSAL(codigo),
- CONSTRAINT clave_foranea_codbarras_producto FOREIGN KEY (codbarras_producto) REFERENCES PRODUCTO(codbarras),
+ CONSTRAINT clave_f_codbarras_producto FOREIGN KEY (codbarras_producto) REFERENCES PRODUCTO(codbarras),
  CONSTRAINT clave_foranea_codigo_vendedor FOREIGN KEY (codigo_vendedor) REFERENCES VENDEDOR(codigo)
 );
 
 INSERT INTO PAIS VALUES('Colombia', 'COP');
 INSERT INTO DPTO VALUES('A', 'Antioquia', 'Colombia');
 INSERT INTO CIUDAD VALUES('M', 'Medellin', 4000000, 'A');
+INSERT INTO CIUDAD VALUES('I', 'Itagui', 100000, 'A');
 INSERT INTO SUCURSAL VALUES('S1', 'Sucursal UNO', 'Carrera esa', 'M');
+INSERT INTO SUCURSAL VALUES('S4', 'Sucursal CUATRO', 'Calle otra', 'I');
 
 INSERT INTO PAIS VALUES('United States', 'USD');
 INSERT INTO DPTO VALUES('CO', 'Colorado', 'United States');
@@ -94,6 +96,7 @@ INSERT INTO PAIS VALUES('Ecuador', 'ECUPESOS :)');
 
 INSERT INTO GREMIO VALUES('LM', 'Los mejores (y)');
 INSERT INTO VENDEDOR VALUES('V1', 'Pedro', 2000000, 'LM');
+INSERT INTO VENDEDOR VALUES('V4', 'Paulina', 300000, 'LM');
 
 INSERT INTO GREMIO VALUES('LP', 'Los peores :(');
 INSERT INTO VENDEDOR VALUES('V2', 'Pablo', 300000, 'LP');
@@ -115,6 +118,11 @@ INSERT INTO VENTA VALUES('Venta1', 1000, 'S1', 'PKi9', 'V1');
 INSERT INTO VENTA VALUES('Venta2', 3000, 'S1', 'PKi9', 'V1');
 INSERT INTO VENTA VALUES('Venta3', 4000, 'S2', 'PKi9', 'V2');
 INSERT INTO VENTA VALUES('Venta4', 5000, 'S2', 'PKi9', 'V1');
+INSERT INTO VENTA VALUES('Venta5', 1500, 'S3', 'PKi9', 'V1');
+INSERT INTO VENTA VALUES('Venta6', 3000, 'S3', 'PKi9', 'V4');
+INSERT INTO VENTA VALUES('Venta7', 1000, 'S3', 'CodBarras1', 'V4');
+INSERT INTO VENTA VALUES('Venta8', 1000, 'S4', 'CodBarras1', 'V4');
+INSERT INTO VENTA VALUES('Venta9', 100000, 'S4', 'CodBarras1', 'V4');
 
 SELECT * FROM PAIS;
 SELECT * FROM DPTO;
@@ -183,16 +191,16 @@ GROUP BY PRODUCTO_MARCA.nombre_marca, PRODUCTO_MARCA.descripcion_marca;
 SELECT SUCURSAL_DPTO.codigo_dpto, SUCURSAL_DPTO.nombre_dpto, SUM(valor) AS valor_total
 FROM VENTA
 RIGHT JOIN (
-SELECT SUCURSAL.codigo AS codigo_sucursal, CIUDAD_DPTO.codigo_dpto AS codigo_dpto, CIUDAD_DPTO.nombre_dpto AS nombre_dpto
-FROM SUCURSAL
-RIGHT JOIN (
-SELECT CIUDAD.codigo AS codigo_ciudad, DPTO.codigo AS codigo_dpto, DPTO.nombre AS nombre_dpto
-FROM CIUDAD
-RIGHT JOIN DPTO
-ON CIUDAD.codigo_dpto = DPTO.codigo
-) CIUDAD_DPTO
-ON SUCURSAL.codigo_ciudad = CIUDAD_DPTO.codigo_ciudad
-) SUCURSAL_DPTO
+    SELECT SUCURSAL.codigo AS codigo_sucursal, CIUDAD_DPTO.codigo_dpto AS codigo_dpto, CIUDAD_DPTO.nombre_dpto AS nombre_dpto
+    FROM SUCURSAL
+    RIGHT JOIN (
+        SELECT CIUDAD.codigo AS codigo_ciudad, DPTO.codigo AS codigo_dpto, DPTO.nombre AS nombre_dpto
+        FROM CIUDAD
+        RIGHT JOIN DPTO
+        ON CIUDAD.codigo_dpto = DPTO.codigo
+        ) CIUDAD_DPTO
+    ON SUCURSAL.codigo_ciudad = CIUDAD_DPTO.codigo_ciudad
+    ) SUCURSAL_DPTO
 ON VENTA.codigo_sucursal = SUCURSAL_DPTO.codigo_sucursal
 GROUP BY SUCURSAL_DPTO.codigo_dpto, SUCURSAL_DPTO.nombre_dpto;
 
@@ -201,18 +209,18 @@ FROM VENTA
 RIGHT JOIN (
 SELECT SUCURSAL.codigo AS codigo_sucursal, CIUDAD_PAIS.nombre_pais AS nombre_pais
 FROM SUCURSAL
-RIGHT JOIN (
-SELECT CIUDAD.codigo AS codigo_ciudad, DPTO_PAIS.nombre_pais AS nombre_pais
-FROM CIUDAD
-RIGHT JOIN (
-SELECT DPTO.codigo AS codigo_dpto, PAIS.nombre AS nombre_pais
-FROM DPTO
-RIGHT JOIN PAIS
-ON DPTO.nombre_pais = PAIS.nombre
-) DPTO_PAIS
-ON CIUDAD.codigo_dpto = DPTO_PAIS.codigo_dpto
-) CIUDAD_PAIS
-ON SUCURSAL.codigo_ciudad = CIUDAD_PAIS.codigo_ciudad
-) SUCURSAL_PAIS
+    RIGHT JOIN (
+        SELECT CIUDAD.codigo AS codigo_ciudad, DPTO_PAIS.nombre_pais AS nombre_pais
+        FROM CIUDAD
+        RIGHT JOIN (
+            SELECT DPTO.codigo AS codigo_dpto, PAIS.nombre AS nombre_pais
+            FROM DPTO
+                RIGHT JOIN PAIS
+                ON DPTO.nombre_pais = PAIS.nombre
+                ) DPTO_PAIS
+            ON CIUDAD.codigo_dpto = DPTO_PAIS.codigo_dpto
+        ) CIUDAD_PAIS
+    ON SUCURSAL.codigo_ciudad = CIUDAD_PAIS.codigo_ciudad
+    ) SUCURSAL_PAIS
 ON VENTA.codigo_sucursal = SUCURSAL_PAIS.codigo_sucursal
 GROUP BY SUCURSAL_PAIS.nombre_pais;
