@@ -1,6 +1,6 @@
 package com.basesMongoJava.ruleFourApp;
 
-import com.basesMongoJava.ruleOneApp.Rule1;
+import com.basesMongoJava.common.Rule4;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -68,12 +68,16 @@ class Vista {
             public void actionPerformed(ActionEvent e) {
                 String t1 = T1.getText();
                 String t2 = T2.getText();
+                String t3 = T3.getText();
 
                 Set<String> t1Attributes = new HashSet<>(
                         Arrays.asList(T1Fields.getText().split(","))
                 );
                 Set<String> t2Attributes = new HashSet<>(
                         Arrays.asList(T2Fields.getText().split(","))
+                );
+                Set<String> t3Attributes = new HashSet<>(
+                        Arrays.asList(T3Fields.getText().split(","))
                 );
 
                 ArrayList<String> s2Queries = new ArrayList<>(
@@ -82,12 +86,16 @@ class Vista {
                 ArrayList<String> s1Queries = new ArrayList<>(
                         Arrays.asList(S1.getText().split("\n"))
                 );
+                ArrayList<String> s3Queries = new ArrayList<>(
+                        Arrays.asList(S3.getText().split("\n"))
+                );
 
-                // Rule1 rule1 = new Rule1(t1, t2, t1Attributes, t2Attributes, s1Queries,s2Queries);
+                Rule4 rule4 = new Rule4(t1, t2, t3, t1Attributes, t2Attributes, t3Attributes,
+                        s1Queries,s2Queries, s3Queries);
 
                 // Este es el resultado
-                // String newcollection = rule1.generateNewCollection();
-                respuesta.setText("holi");
+                String newCollection = rule4.generateNewCollection();
+                respuesta.setText(newCollection);
             }
         });
 

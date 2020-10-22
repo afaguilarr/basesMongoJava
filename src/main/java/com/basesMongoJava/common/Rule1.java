@@ -5,12 +5,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Rule1 {
-    private String t1;
-    private String t2;
-    private Set<String> t1Attributes;
-    private Set<String> t2Attributes;
-    private ArrayList<Set<String>> s1;
-    private ArrayList<Set<String>> s2;
+    protected String t1;
+    protected String t2;
+    protected Set<String> t1Attributes;
+    protected Set<String> t2Attributes;
+    protected ArrayList<Set<String>> s1;
+    protected ArrayList<Set<String>> s2;
 
     public Rule1(String t1, String t2, Set<String> t1Attributes, Set<String> t2Attributes, ArrayList<String> s1Queries, ArrayList<String> s2Queries) {
         this.t1 = t1;
@@ -25,7 +25,7 @@ public class Rule1 {
         this.s2 = Query.parseQueries(s2Queries, attributesUnion);
     }
 
-    private Set<String> generateFirstDocument(Set<String> s2Attributes, ArrayList<Set<String>> s1) {
+    protected Set<String> generateFirstDocument(Set<String> s2Attributes, ArrayList<Set<String>> s1) {
         Set<String> embeddedDocument = new HashSet<>(s2Attributes);
         ArrayList<Set<String>> s1Copy = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class Rule1 {
         return embeddedDocument;
     }
 
-    private Set<String> generateSecondDocument(Set<String> s2Attributes, ArrayList<Set<String>> s1) {
+    protected Set<String> generateSecondDocument(Set<String> s2Attributes, ArrayList<Set<String>> s1) {
         Set<String> embeddedDocument = new HashSet<>();
         ArrayList<Set<String>> s1Copy = new ArrayList<>();
 
@@ -72,17 +72,16 @@ public class Rule1 {
         newCollection += Collection.setToString(t1Attributes);
 
         Set<String> s2Attributes = Collection.getUnion(s2);
+        s2Attributes.retainAll(t2Attributes);
         Set<String> firstEmbeddedDocument = generateFirstDocument(s2Attributes, s1);
-        firstEmbeddedDocument.removeAll(t1Attributes);
 
         if (!firstEmbeddedDocument.isEmpty()) {
             newCollection += String.format(", %s_of_%s:{%s}", t2, t1, Collection.setToString(firstEmbeddedDocument));
         }
 
         Set<String> secondEmbeddedDocument = generateSecondDocument(s2Attributes, s1);
-        secondEmbeddedDocument.removeAll(t1Attributes);
         if (!secondEmbeddedDocument.isEmpty()) {
-            newCollection += String.format(", %s_seconddd_%s:{%s}", t2, t1, Collection.setToString(secondEmbeddedDocument));
+            newCollection += String.format(", %s_T''2_%s:{%s}", t2, t1, Collection.setToString(secondEmbeddedDocument));
         }
 
         return newCollection + "}";
