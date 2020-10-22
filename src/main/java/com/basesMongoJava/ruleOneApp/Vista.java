@@ -1,8 +1,6 @@
 package com.basesMongoJava.ruleOneApp;
 
-import com.basesMongoJava.app.Estadisticas;
-import com.basesMongoJava.app.MongoDatabase;
-import com.basesMongoJava.app.OracleDatabase;
+import com.basesMongoJava.common.Rule1;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -31,7 +29,7 @@ class Vista {
         final JTextField T1Fields = new JTextField();
         T1Fields.setBounds(100, 285, 800, 40);
 
-        JLabel labelT2Fields = new JLabel("Ingrese los atributos de la tabla 1 (T1) separados por coma (ejemplo: atr1,atr2,atr3):");
+        JLabel labelT2Fields = new JLabel("Ingrese los atributos de la tabla 2 (T2) separados por coma (ejemplo: atr1,atr2,atr3):");
         labelT2Fields.setBounds(120, 350, 800, 30);
         final JTextField T2Fields = new JTextField();
         T2Fields.setBounds(100, 385, 800, 40);
@@ -72,9 +70,8 @@ class Vista {
 
                 Rule1 rule1 = new Rule1(t1, t2, t1Attributes, t2Attributes, s1Queries,s2Queries);
 
-                // Este es el resultado
-                // String newcollection = rule1.generateNewCollection();
-                respuesta.setText("holi");
+                String newcollection = rule1.generateNewCollection();
+                respuesta.setText(newcollection);
             }
         });
 

@@ -1,4 +1,4 @@
-package com.basesMongoJava.ruleOneApp;
+package com.basesMongoJava.common;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -48,9 +48,5 @@ public class Collection {
             result.append(attribute).append(", ");
         }
         return result.substring(0, result.length() - 2);
-    }
-
-    public static String setToStringWithBrackets(Set<String> set) {
-        return String.format("{%s}", setToString(set));
     }
 }
