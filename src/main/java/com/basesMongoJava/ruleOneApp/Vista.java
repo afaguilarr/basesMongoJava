@@ -1,8 +1,6 @@
 package com.basesMongoJava.ruleOneApp;
 
-import com.basesMongoJava.app.Estadisticas;
-import com.basesMongoJava.app.MongoDatabase;
-import com.basesMongoJava.app.OracleDatabase;
+import com.basesMongoJava.common.Rule1;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

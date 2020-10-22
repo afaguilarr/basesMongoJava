@@ -1,4 +1,4 @@
-package com.basesMongoJava.ruleOneApp;
+package com.basesMongoJava.common;
 
 import java.util.ArrayList;
 import java.util.HashSet;

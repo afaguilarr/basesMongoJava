@@ -1,4 +1,4 @@
-package com.basesMongoJava.ruleOneApp;
+package com.basesMongoJava.common;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,7 +12,7 @@ public class Rule1 {
     private ArrayList<Set<String>> s1;
     private ArrayList<Set<String>> s2;
 
-    Rule1(String t1, String t2, Set<String> t1Attributes, Set<String> t2Attributes, ArrayList<String> s1Queries, ArrayList<String> s2Queries) {
+    public Rule1(String t1, String t2, Set<String> t1Attributes, Set<String> t2Attributes, ArrayList<String> s1Queries, ArrayList<String> s2Queries) {
         this.t1 = t1;
         this.t2 = t2;
         this.t1Attributes = t1Attributes;
