@@ -49,8 +49,4 @@ public class Collection {
         }
         return result.substring(0, result.length() - 2);
     }
-
-    public static String setToStringWithBrackets(Set<String> set) {
-        return String.format("{%s}", setToString(set));
-    }
 }
