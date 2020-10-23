@@ -34,7 +34,7 @@ class Vista {
         final JTextField T1Fields = new JTextField();
         T1Fields.setBounds(100, 290, 800, 20);
 
-        JLabel labelT2Fields = new JLabel("Ingrese los atributos de la tabla 1 (T1) separados por coma (ejemplo: atr1,atr2,atr3):");
+        JLabel labelT2Fields = new JLabel("Ingrese los atributos de la tabla 2 (T2) separados por coma (ejemplo: atr1,atr2,atr3):");
         labelT2Fields.setBounds(120, 320, 800, 30);
         final JTextField T2Fields = new JTextField();
         T2Fields.setBounds(100, 360, 800, 20);

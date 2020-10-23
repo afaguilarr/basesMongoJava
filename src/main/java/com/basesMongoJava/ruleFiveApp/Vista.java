@@ -1,5 +1,7 @@
 package com.basesMongoJava.ruleFiveApp;
 
+import com.basesMongoJava.common.Rule5;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,7 +34,7 @@ class Vista {
         final JTextField T1Fields = new JTextField();
         T1Fields.setBounds(100, 290, 800, 20);
 
-        JLabel labelT2Fields = new JLabel("Ingrese los atributos de la tabla 1 (T1) separados por coma (ejemplo: atr1,atr2,atr3):");
+        JLabel labelT2Fields = new JLabel("Ingrese los atributos de la tabla 2 (T2) separados por coma (ejemplo: atr1,atr2,atr3):");
         labelT2Fields.setBounds(120, 320, 800, 30);
         final JTextField T2Fields = new JTextField();
         T2Fields.setBounds(100, 360, 800, 20);
@@ -66,12 +68,16 @@ class Vista {
             public void actionPerformed(ActionEvent e) {
                 String t1 = T1.getText();
                 String t2 = T2.getText();
+                String t3 = T3.getText();
 
                 Set<String> t1Attributes = new HashSet<>(
                         Arrays.asList(T1Fields.getText().split(","))
                 );
                 Set<String> t2Attributes = new HashSet<>(
                         Arrays.asList(T2Fields.getText().split(","))
+                );
+                Set<String> t3Attributes = new HashSet<>(
+                        Arrays.asList(T3Fields.getText().split(","))
                 );
 
                 ArrayList<String> s2Queries = new ArrayList<>(
@@ -80,12 +86,16 @@ class Vista {
                 ArrayList<String> s1Queries = new ArrayList<>(
                         Arrays.asList(S1.getText().split("\n"))
                 );
+                ArrayList<String> s3Queries = new ArrayList<>(
+                        Arrays.asList(S3.getText().split("\n"))
+                );
 
-                // Rule1 rule1 = new Rule1(t1, t2, t1Attributes, t2Attributes, s1Queries,s2Queries);
+                Rule5 rule5 = new Rule5(t1, t2, t3, t1Attributes, t2Attributes, t3Attributes,
+                        s1Queries,s2Queries, s3Queries);
 
                 // Este es el resultado
-                // String newcollection = rule1.generateNewCollection();
-                respuesta.setText("holi");
+                String newCollection = rule5.generateNewCollection();
+                respuesta.setText(newCollection);
             }
         });
 
