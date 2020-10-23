@@ -16,27 +16,6 @@ public class Collection {
         return attributesUnion;
     }
 
-    public static Set<String> getFirstDocumentUnion(ArrayList<Set<String>> attributesSets) {
-        Set<String> attributesUnion = new HashSet<>();
-
-        for (Set<String> set : attributesSets) {
-            attributesUnion.addAll(set);
-        }
-
-        return attributesUnion;
-    }
-
-
-    public static Set<String> getIntersection(ArrayList<Set<String>> attributesSets) {
-        Set<String> attributesIntersection = new HashSet<>();
-
-        for (Set<String> set : attributesSets) {
-            attributesIntersection.retainAll(set);
-        }
-
-        return attributesIntersection;
-    }
-
     public static String setToString(Set<String> set) {
         StringBuilder result = new StringBuilder();
 
