@@ -34,18 +34,18 @@ class Vista {
         final JTextField T2Fields = new JTextField();
         T2Fields.setBounds(100, 385, 800, 40);
 
-        JLabel S2Label = new JLabel("Ingrese las consultas S2 separadas por un salto de línea (enter):");
-        S2Label.setBounds(120, 450, 800, 30);
-        final JTextArea S2 = new JTextArea();
-        S2.setBounds(100, 485, 800, 100);
-
         JLabel S1Label = new JLabel("Ingrese las consultas S1 separadas por un salto de línea (enter):");
-        S1Label.setBounds(120, 610, 800, 30);
+        S1Label.setBounds(120, 450, 800, 30);
         final JTextArea S1 = new JTextArea();
-        S1.setBounds(100, 645, 800, 100);
+        S1.setBounds(100, 485, 800, 100);
+
+        JLabel S2Label = new JLabel("Ingrese las consultas S2 separadas por un salto de línea (enter):");
+        S2Label.setBounds(120, 610, 800, 30);
+        final JTextArea S2 = new JTextArea();
+        S2.setBounds(100, 645, 800, 100);
 
         final JLabel respuesta = new JLabel("Q' = ?");
-        respuesta.setBounds(340, 775, 660, 30);
+        respuesta.setBounds(340, 775, 2000, 30);
 
         JButton generar = new JButton("Generar");
         generar.setBounds(120, 775, 200, 50);  //x axis, y axis, width, height

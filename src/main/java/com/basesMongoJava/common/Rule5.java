@@ -23,29 +23,29 @@ public class Rule5 extends Rule4 {
         t2s3Attributes.retainAll(t2Attributes);
         Set<String> firstEmbeddedDocument = generateFirstDocument(t2s3Attributes, s1);
 
-        if (!firstEmbeddedDocument.isEmpty()) {
-            newCollection += String.format(", %s_of_%s:{%s}", t2, t1, Collection.setToString(firstEmbeddedDocument));
-            newCollection = newCollection.substring(0, newCollection.length() - 1);
-        }
-
         Set<String> t3s3Attributes = Collection.getUnion(s3);
         t3s3Attributes.retainAll(t3Attributes);
         Set<String> firstEmbeddedDocumentAlpha = generateFirstDocument(t3s3Attributes, s1);
 
-        if (!firstEmbeddedDocumentAlpha.isEmpty()) {
-            newCollection += String.format(", %s_of_%s:{%s}", t3, t1, Collection.setToString(firstEmbeddedDocumentAlpha));
+        if (!firstEmbeddedDocument.isEmpty() || !firstEmbeddedDocumentAlpha.isEmpty()) {
+            newCollection += String.format(", T'2:{%s", Collection.setToString(firstEmbeddedDocument));
+            if(!firstEmbeddedDocument.isEmpty()){
+               newCollection += ", ";
+            }
+            if (!firstEmbeddedDocumentAlpha.isEmpty()) {
+                newCollection += String.format("T'3:{%s}", Collection.setToString(firstEmbeddedDocumentAlpha));
+            }
+            newCollection += "}";
         }
-
-        if (!firstEmbeddedDocument.isEmpty()) newCollection += "}";
 
         Set<String> secondEmbeddedDocument = generateSecondDocument(t2s3Attributes, s1);
         if (!secondEmbeddedDocument.isEmpty()) {
-            newCollection += String.format(", %s_T''2_%s:{%s}", t2, t1, Collection.setToString(secondEmbeddedDocument));
+            newCollection += String.format(", T''2:{%s}", Collection.setToString(secondEmbeddedDocument));
         }
 
         secondEmbeddedDocument = generateSecondDocument(t3s3Attributes, s1);
         if (!secondEmbeddedDocument.isEmpty()) {
-            newCollection += String.format(", %s_T''3_%s:{%s}", t3, t1, Collection.setToString(secondEmbeddedDocument));
+            newCollection += String.format(", T''3:{%s}", Collection.setToString(secondEmbeddedDocument));
         }
         return newCollection + "}";
     }

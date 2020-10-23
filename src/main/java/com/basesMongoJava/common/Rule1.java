@@ -81,7 +81,7 @@ public class Rule1 {
 
         Set<String> secondEmbeddedDocument = generateSecondDocument(s2Attributes, s1);
         if (!secondEmbeddedDocument.isEmpty()) {
-            newCollection += String.format(", %s_T''2_%s:{%s}", t2, t1, Collection.setToString(secondEmbeddedDocument));
+            newCollection += String.format(", T''2:{%s}", Collection.setToString(secondEmbeddedDocument));
         }
 
         return newCollection + "}";

@@ -19,10 +19,17 @@ public class Query {
     public static ArrayList<Set<String>> parseQueries(ArrayList<String> queries, Set<String> tAttributes) {
         ArrayList<Set<String>> queriesAttributes = new ArrayList<>();
 
+        if(queries.isEmpty()){
+            return queriesAttributes;
+        }
+
         for (String query : queries) {
             Set<String> queryAttributes = parseQuery(query);
             if (queryAttributes.iterator().hasNext() && queryAttributes.iterator().next().equals("*")) {
                 queriesAttributes.add(tAttributes);
+                continue;
+            }
+            if (queryAttributes.iterator().hasNext() && queryAttributes.iterator().next().isEmpty()) {
                 continue;
             }
             queriesAttributes.add(parseQuery(query));

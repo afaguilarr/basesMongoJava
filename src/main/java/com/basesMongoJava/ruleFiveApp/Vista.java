@@ -44,15 +44,15 @@ class Vista {
         final JTextField T3Fields = new JTextField();
         T3Fields.setBounds(100, 430, 800, 20);
 
-        JLabel S2Label = new JLabel("Ingrese las consultas S2 separadas por un salto de línea (enter):");
-        S2Label.setBounds(120, 460, 800, 30);
-        final JTextArea S2 = new JTextArea();
-        S2.setBounds(100, 500, 800, 80);
-
         JLabel S1Label = new JLabel("Ingrese las consultas S1 separadas por un salto de línea (enter):");
-        S1Label.setBounds(120, 590, 800, 30);
+        S1Label.setBounds(120, 460, 800, 30);
         final JTextArea S1 = new JTextArea();
-        S1.setBounds(100, 630, 800, 80);
+        S1.setBounds(100, 500, 800, 80);
+
+        JLabel S2Label = new JLabel("Ingrese las consultas S2 separadas por un salto de línea (enter):");
+        S2Label.setBounds(120, 590, 800, 30);
+        final JTextArea S2 = new JTextArea();
+        S2.setBounds(100, 630, 800, 80);
 
         JLabel S3Label = new JLabel("Ingrese las consultas S3 separadas por un salto de línea (enter):");
         S3Label.setBounds(120, 720, 800, 30);
@@ -60,7 +60,7 @@ class Vista {
         S3.setBounds(100, 760, 800, 80);
 
         final JLabel respuesta = new JLabel("Q' = ?");
-        respuesta.setBounds(340, 870, 660, 30);
+        respuesta.setBounds(340, 870, 2000, 30);
 
         JButton generar = new JButton("Generar");
         generar.setBounds(120, 870, 200, 50);  //x axis, y axis, width, height

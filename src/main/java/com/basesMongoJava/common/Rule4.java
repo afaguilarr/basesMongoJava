@@ -36,12 +36,12 @@ public class Rule4 extends Rule1{
         Set<String> firstEmbeddedDocument = generateFirstDocument(t2s3Attributes, s1);
 
         if (!firstEmbeddedDocument.isEmpty()) {
-            newCollection += String.format(", %s_of_%s:{%s}", t2, t1, Collection.setToString(firstEmbeddedDocument));
+            newCollection += String.format(", T'2:{%s}", Collection.setToString(firstEmbeddedDocument));
         }
 
         Set<String> secondEmbeddedDocument = generateSecondDocument(t2s3Attributes, s1);
         if (!secondEmbeddedDocument.isEmpty()) {
-            newCollection += String.format(", %s_T''2_%s:{%s}", t2, t1, Collection.setToString(secondEmbeddedDocument));
+            newCollection += String.format(", T''2:{%s}", Collection.setToString(secondEmbeddedDocument));
         }
 
         Set<String> t3s3Attributes = Collection.getUnion(s3);
@@ -49,12 +49,12 @@ public class Rule4 extends Rule1{
         firstEmbeddedDocument = generateFirstDocument(t3s3Attributes, s1);
 
         if (!firstEmbeddedDocument.isEmpty()) {
-            newCollection += String.format(", %s_of_%s:{%s}", t3, t1, Collection.setToString(firstEmbeddedDocument));
+            newCollection += String.format(", T'3:{%s}", Collection.setToString(firstEmbeddedDocument));
         }
 
         secondEmbeddedDocument = generateSecondDocument(t3s3Attributes, s1);
         if (!secondEmbeddedDocument.isEmpty()) {
-            newCollection += String.format(", %s_T''3_%s:{%s}", t3, t1, Collection.setToString(secondEmbeddedDocument));
+            newCollection += String.format(", T''3:{%s}", Collection.setToString(secondEmbeddedDocument));
         }
         return newCollection + "}";
     }
